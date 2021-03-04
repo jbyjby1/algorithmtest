@@ -34,5 +34,11 @@ public class PrintUtils {
         }
     }
 
+    public static void printIntegerMap(Map<Integer, Integer> map){
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+            System.out.println(entry.getKey() + "  " + entry.getValue());
+        }
+    }
+
 
 }

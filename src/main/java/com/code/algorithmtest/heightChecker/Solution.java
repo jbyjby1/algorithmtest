@@ -10,24 +10,6 @@ package com.code.algorithmtest.heightChecker;
 public class Solution {
 
     public int heightChecker(int[] heights) {
-        int result = 0;
-        int[] heightNum = new int[101];
-        for(int i = 0; i < heights.length; i++){
-            heightNum[heights[i]]++;
-        }
-        int currentStudentNum = 0;
-        for (int i = 0; i < heightNum.length; i++){
-            if(heightNum[i] == 0){
-                continue;
-            }else{
-                for (int j = 0; j < heightNum[i]; j++){
-                    if(heights[currentStudentNum] != i){
-                        result++;
-                    }
-                    currentStudentNum++;
-                }
-            }
-        }
-        return result;
+        return 0;
     }
 }

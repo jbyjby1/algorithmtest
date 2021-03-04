@@ -10,19 +10,28 @@ package com.code.algorithmtest.judgeCircle;
 public class Solution {
 
     public boolean judgeCircle(String moves) {
-        char[] moveSteps = moves.toCharArray();
-        //水平偏移量，负数代表向左，正数代表向右
-        int horizontalOffset = 0;
-        //垂直偏移量，负数代表向下，正数代表向上
-        int verticalOffset = 0;
-        for (int i = 0; i <  moveSteps.length; i++){
-            switch (moveSteps[i]){
-                case 'U': verticalOffset++;break;
-                case 'D': verticalOffset--;break;
-                case 'L': horizontalOffset--;break;
-                case 'R': horizontalOffset++;break;
+        //统计U D L R 的个数 ；
+        //U 和 D相等 且L 和R 相等 返回true
+        int uCount = 0;
+        int dCount = 0;
+        int lCount = 0;
+        int rCount = 0;
+        moves = moves.toLowerCase();
+        for (int i = 0; i < moves.length(); i++) {
+            String s = String.valueOf(moves.charAt(i));
+            if ("u".equals(s)) {
+                uCount++;
+            } else if ("d".equals(s)) {
+                dCount++;
+            } else if ("l".equals(s)) {
+                lCount++;
+            } else if ("r".equals(s)) {
+                rCount++;
             }
         }
-        return horizontalOffset == 0 && verticalOffset == 0;
+        if (uCount == dCount && lCount == rCount) {
+            return true;
+        }
+        return false;
     }
 }

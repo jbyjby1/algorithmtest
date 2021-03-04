@@ -18,31 +18,21 @@ public class Solution {
      * @return
      */
     public int maxIncreaseKeepingSkyline(int[][] grid) {
-        int result = 0;
-        //获取原本天际线数据
-        int[] leftSkyLine = new int[grid.length];
-        int[] topSkyLine = new int[grid[0].length];
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[i].length; j++){
-                int currentHeight = grid[i][j];
-                if(currentHeight > leftSkyLine[i]){
-                    leftSkyLine[i] = currentHeight;
-                }
-                if(currentHeight > topSkyLine[j]){
-                    topSkyLine[j] = currentHeight;
+
+      int result =0;
+      int[] linMax= new  int[grid.length];
+      int[] colunMax=new int[grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j <grid[i].length ; j++) {
+                if(grid[i][j]>colunMax[i]){
+                    colunMax[i]=grid[i][j];
                 }
             }
+//            if(grid[i][0] ){
+//
+//            }
         }
-        //遍历判断每个建筑物的最高高度，计算增加总和
-        for(int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                int currentHeight = grid[i][j];
-                if(currentHeight < leftSkyLine[i] && currentHeight < topSkyLine[j]){
-                    int maxHeight = leftSkyLine[i] > topSkyLine[j] ? topSkyLine[j] : leftSkyLine[i];
-                    result += maxHeight - currentHeight;
-                }
-            }
-        }
+
 
         return result;
     }

@@ -1,9 +1,6 @@
 package com.code.algorithmtest.getImportance;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,27 +23,34 @@ import java.util.stream.Collectors;
 public class Solution {
 
     public int getImportance(List<Employee> employees, int id) {
-        Map<Integer, Employee> idEmployees = employees.stream().collect(Collectors.toMap(employ -> employ.id, Function.identity()));
-        return this.getImportance(idEmployees, id);
+        //重要度
+        int importance = 0;
+
+        importance = this.getImportance(employees,Arrays.asList(id));
+
+        return importance;
     }
 
-    public int getImportance(Map<Integer, Employee> idEmployees, int id) {
-        int result = 0;
-        if(!idEmployees.containsKey(id)){
-            return result;
+    public Integer getImportance(List<Employee> employees,List<Integer> employeeIdList){
+        Integer importance  = 0;
+        List<Employee> employeeAnother = new ArrayList<>();
+        for(Integer employeeId:employeeIdList){
+            List<Integer> collect = employees.stream().filter(employee -> employee.id == employeeId)
+                    .map(employee -> employee.importance).collect(Collectors.toList());
+            employeeAnother = employees.stream().filter(employee -> !employee.subordinates.isEmpty()).collect(Collectors.toList());
+            for(Integer integer:collect){
+                importance = integer + importance;
+            }
         }
-        Employee currentEmployee = idEmployees.get(id);
-        result += currentEmployee.importance;
-        if(currentEmployee.subordinates == null || currentEmployee.subordinates.isEmpty()){
-            return result;
-        }
-        Optional<Integer> subordinatesImportance = currentEmployee.subordinates.stream().map(subordinate -> {
-            return getImportance(idEmployees, subordinate);
-        }).reduce((a, b) -> a + b);
-        if(subordinatesImportance.isPresent()){
-            result += subordinatesImportance.get();
-        }
-        return result;
-    }
+        Integer importance1 = 0;
+        if(!employeeAnother.isEmpty()){
+            importance1 = this.getImportance(employeeAnother, employeeAnother.stream().map(employee -> {
+                return employee.id;
+            }).collect(Collectors.toList()));
 
+        }else {
+            return importance;
+        }
+        return importance1+  importance;
+    }
 }
